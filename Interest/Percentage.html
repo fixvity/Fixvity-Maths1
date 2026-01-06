@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Percentage Calculator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{
+  --primary:#2563eb;
+  --bg:#f4f7fb;
+  --card:#ffffff;
+  --text:#111827;
+  --muted:#6b7280;
+  --radius:14px;
+  --shadow:0 8px 28px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,Arial;
+  background:var(--bg);
+  color:var(--text);
+}
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:16px;
+}
+
+/* HEADER */
+.header{
+  background:var(--card);
+  padding:22px;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  text-align:center;
+}
+.header h1{margin:0;color:var(--primary)}
+.header p{margin-top:6px;color:var(--muted)}
+
+/* TABS */
+.tabs{
+  display:flex;
+  margin-top:16px;
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  flex-wrap:wrap;
+}
+.tab{
+  flex:1 1 50%;
+  padding:14px;
+  border:none;
+  background:none;
+  font-weight:700;
+  cursor:pointer;
+  color:var(--muted);
+}
+.tab.active{
+  background:var(--primary);
+  color:#fff;
+}
+
+/* PANEL */
+.panel{display:none;margin-top:18px}
+.panel.active{display:block}
+
+/* CARD */
+.card{
+  background:var(--card);
+  padding:22px;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+.field{margin-bottom:14px}
+label{font-weight:600}
+input{
+  width:100%;
+  padding:12px;
+  margin-top:6px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  font-size:15px;
+}
+
+/* BUTTONS */
+.actions{
+  display:flex;
+  gap:12px;
+  margin-top:12px;
+}
+button{
+  flex:1;
+  padding:14px;
+  font-size:15px;
+  font-weight:700;
+  border-radius:12px;
+  border:none;
+  cursor:pointer;
+}
+.calc{background:var(--primary);color:#fff}
+.clear{background:#eef2f7}
+
+/* RESULT */
+.result{
+  margin-top:16px;
+  padding:16px;
+  border-radius:12px;
+  background:#f1f5ff;
+  font-size:18px;
+  font-weight:700;
+  text-align:center;
+}
+.explain{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:14px;
+  text-align:center;
+}
+
+/* RESPONSIVE */
+@media(min-width:768px){
+  .tab{flex:1}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div class="header">
+<h1>Percentage Calculator</h1>
+<p>Advanced percentage calculator with multiple formulas & instant results.</p>
+</div>
+
+<div class="tabs">
+<button class="tab active" onclick="show(0)">X% of Y</button>
+<button class="tab" onclick="show(1)">X is % of Y</button>
+<button class="tab" onclick="show(2)">Increase %</button>
+<button class="tab" onclick="show(3)">Decrease %</button>
+<button class="tab" onclick="show(4)">% Change</button>
+<button class="tab" onclick="show(5)">Reverse %</button>
+</div>
+
+<!-- 1 -->
+<div class="panel active">
+<div class="card">
+<div class="field"><label>Percentage (%)</label><input id="p1"></div>
+<div class="field"><label>Number</label><input id="n1"></div>
+<div class="actions">
+<button class="calc" onclick="calc1()">Calculate</button>
+<button class="clear" onclick="clearFields()">Clear</button>
+</div>
+<div class="result" id="r1"></div>
+<div class="explain">Formula: (X / 100) × Y</div>
+</div>
+</div>
+
+<!-- 2 -->
+<div class="panel">
+<div class="card">
+<div class="field"><label>Number X</label><input id="x2"></div>
+<div class="field"><label>Number Y</label><input id="y2"></div>
+<div class="actions">
+<button class="calc" onclick="calc2()">Calculate</button>
+<button class="clear" onclick="clearFields()">Clear</button>
+</div>
+<div class="result" id="r2"></div>
+<div class="explain">Formula: (X ÷ Y) × 100</div>
+</div>
+</div>
+
+<!-- 3 -->
+<div class="panel">
+<div class="card">
+<div class="field"><label>Original Value</label><input id="o3"></div>
+<div class="field"><label>Increase Value</label><input id="i3"></div>
+<div class="actions">
+<button class="calc" onclick="calc3()">Calculate</button>
+<button class="clear" onclick="clearFields()">Clear</button>
+</div>
+<div class="result" id="r3"></div>
+</div>
+</div>
+
+<!-- 4 -->
+<div class="panel">
+<div class="card">
+<div class="field"><label>Original Value</label><input id="o4"></div>
+<div class="field"><label>Decrease Value</label><input id="d4"></div>
+<div class="actions">
+<button class="calc" onclick="calc4()">Calculate</button>
+<button class="clear" onclick="clearFields()">Clear</button>
+</div>
+<div class="result" id="r4"></div>
+</div>
+</div>
+
+<!-- 5 -->
+<div class="panel">
+<div class="card">
+<div class="field"><label>Old Value</label><input id="old5"></div>
+<div class="field"><label>New Value</label><input id="new5"></div>
+<div class="actions">
+<button class="calc" onclick="calc5()">Calculate</button>
+<button class="clear" onclick="clearFields()">Clear</button>
+</div>
+<div class="result" id="r5"></div>
+</div>
+</div>
+
+<!-- 6 -->
+<div class="panel">
+<div class="card">
+<div class="field"><label>Final Value</label><input id="f6"></div>
+<div class="field"><label>Percentage (%)</label><input id="p6"></div>
+<div class="actions">
+<button class="calc" onclick="calc6()">Calculate</button>
+<button class="clear" onclick="clearFields()">Clear</button>
+</div>
+<div class="result" id="r6"></div>
+</div>
+</div>
+
+</div>
+
+<script>
+function show(i){
+document.querySelectorAll(".tab").forEach((t,x)=>t.classList.toggle("active",x===i));
+document.querySelectorAll(".panel").forEach((p,x)=>p.classList.toggle("active",x===i));
+}
+
+const num=v=>parseFloat(v)||0;
+const pct=v=>`${v.toFixed(2)}%`;
+
+function calc1(){
+r1.textContent=(num(p1.value)/100*num(n1.value)).toFixed(2);
+}
+function calc2(){
+r2.textContent=y2.value==0?"Invalid":pct(num(x2.value)/num(y2.value)*100);
+}
+function calc3(){
+r3.textContent=pct((num(i3.value)/num(o3.value))*100);
+}
+function calc4(){
+r4.textContent=pct((num(d4.value)/num(o4.value))*100);
+}
+function calc5(){
+r5.textContent=pct(((num(new5.value)-num(old5.value))/num(old5.value))*100);
+}
+function calc6(){
+r6.textContent=(num(f6.value)/(1+num(p6.value)/100)).toFixed(2);
+}
+function clearFields(){
+document.querySelectorAll("input").forEach(i=>i.value="");
+document.querySelectorAll(".result").forEach(r=>r.textContent="");
+}
+</script>
+
+</body>
+</html>
